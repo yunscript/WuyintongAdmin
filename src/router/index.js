@@ -27,15 +27,15 @@ export const constantRouterMap = [
     name: '首页',
     hidden: true,
     children: [{ path: 'dashboard', component: _import('dashboard/index') }]
-  },
-  {
-    path: '/introduction',
-    component: Layout,
-    redirect: '/introduction/index',
-    icon: 'people',
-    noDropdown: true,
-    children: [{ path: 'index', component: _import('introduction/index'), name: '简述' }]
   }
+  // {
+  //   path: '/introduction',
+  //   component: Layout,
+  //   redirect: '/introduction/index',
+  //   icon: 'people',
+  //   noDropdown: true,
+  //   children: [{ path: 'index', component: _import('introduction/index'), name: '简述' }]
+  // }
 ]
 
 export default new Router({
@@ -45,23 +45,23 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/index',
-    name: '权限测试',
-    icon: 'lock',
-    meta: { role: ['admin'] },
-    noDropdown: true,
-    children: [{ path: 'index', component: _import('permission/index'), name: '权限测试页', meta: { role: ['admin'] }}]
-  },
-  {
-    path: '/icon',
-    component: Layout,
-    icon: 'icon',
-    noDropdown: true,
-    children: [{ path: 'index', component: _import('svg-icons/index'), name: 'icons' }]
-  },
+  // {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/index',
+  //   name: '权限测试',
+  //   icon: 'lock',
+  //   meta: { role: ['admin'] },
+  //   noDropdown: true,
+  //   children: [{ path: 'index', component: _import('permission/index'), name: '权限测试页', meta: { role: ['admin'] }}]
+  // },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   icon: 'icon',
+  //   noDropdown: true,
+  //   children: [{ path: 'index', component: _import('svg-icons/index'), name: 'icons' }]
+  // },
   {
     path: '/components',
     component: Layout,
@@ -133,54 +133,54 @@ export const asyncRouterMap = [
       { path: '404', component: _import('errorPage/404'), name: '404' }
     ]
   },
-  {
-    path: '/errlog',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'errlog',
-    icon: 'bug',
-    noDropdown: true,
-    children: [{ path: 'log', component: _import('errlog/index'), name: '错误日志' }]
-  },
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/download',
-    name: 'excel',
-    icon: 'excel',
-    children: [
-      { path: 'download', component: _import('excel/index'), name: 'export excel' },
-      { path: 'download2', component: _import('excel/selectExcel'), name: 'export selected' },
-      { path: 'upload', component: _import('excel/uploadExcel'), name: 'upload excel' }
-    ]
-  },
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    name: 'zip',
-    icon: 'zip',
-    children: [
-      { path: 'download', component: _import('zip/index'), name: 'export zip' }
-    ]
-  },
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'theme',
-    icon: 'theme',
-    noDropdown: true,
-    children: [{ path: 'index', component: _import('theme/index'), name: '换肤' }]
-  },
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    icon: 'clipboard',
-    noDropdown: true,
-    children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboard' }]
-  },
+  // {
+  //   path: '/errlog',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'errlog',
+  //   icon: 'bug',
+  //   noDropdown: true,
+  //   children: [{ path: 'log', component: _import('errlog/index'), name: '错误日志' }]
+  // },
+  // {
+  //   path: '/excel',
+  //   component: Layout,
+  //   redirect: '/excel/download',
+  //   name: 'excel',
+  //   icon: 'excel',
+  //   children: [
+  //     { path: 'download', component: _import('excel/index'), name: 'export excel' },
+  //     { path: 'download2', component: _import('excel/selectExcel'), name: 'export selected' },
+  //     { path: 'upload', component: _import('excel/uploadExcel'), name: 'upload excel' }
+  //   ]
+  // },
+  // {
+  //   path: '/zip',
+  //   component: Layout,
+  //   redirect: '/zip/download',
+  //   name: 'zip',
+  //   icon: 'zip',
+  //   children: [
+  //     { path: 'download', component: _import('zip/index'), name: 'export zip' }
+  //   ]
+  // },
+  // {
+  //   path: '/theme',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'theme',
+  //   icon: 'theme',
+  //   noDropdown: true,
+  //   children: [{ path: 'index', component: _import('theme/index'), name: '换肤' }]
+  // },
+  // {
+  //   path: '/clipboard',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   icon: 'clipboard',
+  //   noDropdown: true,
+  //   children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboard' }]
+  // },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

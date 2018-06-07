@@ -29,11 +29,11 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
         console.log(chalk.cyan('  Build complete.\n'))
         if(process.env.npm_config_preview){
             server.start({
-                port: 9528,
+                port: 8000,
                 directory: './dist',
                 file: '/index.html'
             });
-            console.log('> Listening at ' +  'http://localhost:9528' + '\n')
+            console.log('> Listening at ' +  'http://localhost:8000' + '\n')
         }
     })
 })

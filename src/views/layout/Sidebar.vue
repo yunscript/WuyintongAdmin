@@ -1,5 +1,5 @@
 <template>
-    <el-menu mode="vertical" theme="dark" unique-opened :default-active="$route.path" :collapse="isCollapse">
+    <el-menu mode="horizontal" theme="dark" unique-opened :default-active="$route.path" :collapse="isCollapse">
       <sidebar-item :routes='permission_routers'></sidebar-item>
     </el-menu>
 </template>
@@ -21,3 +21,16 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.app-wrapper .sidebar-container[data-v-1100c946] {
+  width: 100%;
+  height: 180px;
+  overflow-y: visible;
+}
+.el-menu--horizontal .el-submenu>.el-menu {
+  background-color: red;
+}
+.el-menu--horizontal .el-submenu .el-menu-item {
+  background-color: none;
+}
+</style>
