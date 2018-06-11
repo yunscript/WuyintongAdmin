@@ -24,8 +24,12 @@ export default {
 <style lang="scss">
 .app-wrapper .sidebar-container[data-v-1100c946] {
   width: 100%;
-  height: 180px;
+  height: 60px;
   overflow-y: visible;
+}
+.app-wrapper .main-container[data-v-1100c946] {
+  margin-top: 60px;
+  margin-left: 0px;
 }
 .el-menu--horizontal .el-submenu>.el-menu {
   background-color: red;
