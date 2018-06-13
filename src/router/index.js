@@ -28,14 +28,6 @@ export const constantRouterMap = [
     hidden: true,
     children: [{ path: 'dashboard', component: _import('dashboard/index') }]
   }
-  // {
-  //   path: '/introduction',
-  //   component: Layout,
-  //   redirect: '/introduction/index',
-  //   icon: 'people',
-  //   noDropdown: true,
-  //   children: [{ path: 'index', component: _import('introduction/index'), name: '简述' }]
-  // }
 ]
 
 export default new Router({
@@ -62,6 +54,79 @@ export const asyncRouterMap = [
   //   noDropdown: true,
   //   children: [{ path: 'index', component: _import('svg-icons/index'), name: 'icons' }]
   // },
+  /*
+  * 金融产品管理
+  */
+  {
+    path: '/management',
+    component: Layout,
+    redirect: '/management/index',
+    name: '金融产品管理',
+    icon: 'chart',
+    children: [
+      { path: 'index', component: _import('management/index'), name: '新增个人贷' },
+      { path: 'keyboard', component: _import('charts/keyboard'), name: '新增企业贷' },
+      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '产品管理' },
+      { path: 'line', component: _import('charts/line'), name: '合同管理' }
+    ]
+  },
+  /*
+  * 融资申请
+  */
+  {
+    path: '/charts',
+    component: Layout,
+    redirect: '/charts/index',
+    name: '融资申请',
+    icon: 'chart',
+    children: [
+      { path: 'index', component: _import('charts/index'), name: '融资申请' },
+      { path: 'keyboard', component: _import('charts/keyboard'), name: '授信管理' },
+      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '用款查询' },
+      { path: 'line', component: _import('charts/line'), name: '还款查询' }
+    ]
+  },
+  /*
+  * 链上信息查询
+  */
+  {
+    path: '/charts',
+    component: Layout,
+    redirect: '/charts/index',
+    name: '链上信息查询',
+    icon: 'chart',
+    children: [
+      { path: 'line', component: _import('charts/line'), name: '企业信息查询' }
+    ]
+  },
+  /*
+  * 我的消息
+  */
+  {
+    path: '/charts',
+    component: Layout,
+    redirect: '/charts/index',
+    name: '我的消息',
+    icon: 'chart',
+    children: [
+      { path: 'line', component: _import('charts/line'), name: '我的消息' },
+      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '发送消息' }
+    ]
+  },
+  /*
+  *  设置
+  */
+  {
+    path: '/charts',
+    component: Layout,
+    redirect: '/charts/index',
+    name: '设置',
+    icon: 'chart',
+    children: [
+      { path: 'line', component: _import('charts/line'), name: '企业人员管理' },
+      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '我的企业' }
+    ]
+  },
   {
     path: '/components',
     component: Layout,
@@ -133,54 +198,5 @@ export const asyncRouterMap = [
       { path: '404', component: _import('errorPage/404'), name: '404' }
     ]
   },
-  // {
-  //   path: '/errlog',
-  //   component: Layout,
-  //   redirect: 'noredirect',
-  //   name: 'errlog',
-  //   icon: 'bug',
-  //   noDropdown: true,
-  //   children: [{ path: 'log', component: _import('errlog/index'), name: '错误日志' }]
-  // },
-  // {
-  //   path: '/excel',
-  //   component: Layout,
-  //   redirect: '/excel/download',
-  //   name: 'excel',
-  //   icon: 'excel',
-  //   children: [
-  //     { path: 'download', component: _import('excel/index'), name: 'export excel' },
-  //     { path: 'download2', component: _import('excel/selectExcel'), name: 'export selected' },
-  //     { path: 'upload', component: _import('excel/uploadExcel'), name: 'upload excel' }
-  //   ]
-  // },
-  // {
-  //   path: '/zip',
-  //   component: Layout,
-  //   redirect: '/zip/download',
-  //   name: 'zip',
-  //   icon: 'zip',
-  //   children: [
-  //     { path: 'download', component: _import('zip/index'), name: 'export zip' }
-  //   ]
-  // },
-  // {
-  //   path: '/theme',
-  //   component: Layout,
-  //   redirect: 'noredirect',
-  //   name: 'theme',
-  //   icon: 'theme',
-  //   noDropdown: true,
-  //   children: [{ path: 'index', component: _import('theme/index'), name: '换肤' }]
-  // },
-  // {
-  //   path: '/clipboard',
-  //   component: Layout,
-  //   redirect: 'noredirect',
-  //   icon: 'clipboard',
-  //   noDropdown: true,
-  //   children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboard' }]
-  // },
-
   { path: '*', redirect: '/404', hidden: true }
 ]
