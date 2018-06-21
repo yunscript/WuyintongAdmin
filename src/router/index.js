@@ -64,23 +64,23 @@ export const asyncRouterMap = [
     name: '金融产品管理',
     icon: 'chart',
     children: [
-      { path: 'index', component: _import('management/index'), name: '新增个人贷' },
-      { path: 'keyboard', component: _import('charts/keyboard'), name: '新增企业贷' },
-      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '产品管理' },
-      { path: 'line', component: _import('charts/line'), name: '合同管理' }
+      { path: 'index', component: _import('management/index'), name: '新增个人贷' }
+      // { path: 'keyboard', component: _import('charts/keyboard'), name: '新增企业贷' },
+      // { path: 'keyboard2', component: _import('charts/keyboard2'), name: '产品管理' },
+      // { path: 'line', component: _import('charts/line'), name: '合同管理' }
     ]
   },
   /*
   * 融资申请
   */
   {
-    path: '/charts',
+    path: '/financing',
     component: Layout,
-    redirect: '/charts/index',
+    redirect: '/financing/index',
     name: '融资申请',
     icon: 'chart',
     children: [
-      { path: 'index', component: _import('charts/index'), name: '融资申请' },
+      { path: 'index', component: _import('financing/index'), name: '融资申请' },
       { path: 'keyboard', component: _import('charts/keyboard'), name: '授信管理' },
       { path: 'keyboard2', component: _import('charts/keyboard2'), name: '用款查询' },
       { path: 'line', component: _import('charts/line'), name: '还款查询' }
@@ -127,41 +127,41 @@ export const asyncRouterMap = [
       { path: 'keyboard2', component: _import('charts/keyboard2'), name: '我的企业' }
     ]
   },
-  {
-    path: '/components',
-    component: Layout,
-    redirect: '/components/index',
-    name: '组件',
-    icon: 'component',
-    children: [
-      { path: 'index', component: _import('components/index'), name: '介绍 ' },
-      { path: 'tinymce', component: _import('components/tinymce'), name: '富文本编辑器' },
-      { path: 'markdown', component: _import('components/markdown'), name: 'Markdown' },
-      { path: 'jsoneditor', component: _import('components/jsonEditor'), name: 'JSON编辑器' },
-      { path: 'dndlist', component: _import('components/dndList'), name: '列表拖拽' },
-      { path: 'splitpane', component: _import('components/splitpane'), name: 'SplitPane' },
-      { path: 'avatarupload', component: _import('components/avatarUpload'), name: '头像上传' },
-      { path: 'dropzone', component: _import('components/dropzone'), name: 'Dropzone' },
-      { path: 'sticky', component: _import('components/sticky'), name: 'Sticky' },
-      { path: 'countto', component: _import('components/countTo'), name: 'CountTo' },
-      { path: 'mixin', component: _import('components/mixin'), name: '小组件' },
-      { path: 'backtotop', component: _import('components/backToTop'), name: '返回顶部' }
-    ]
-  },
-  {
-    path: '/charts',
-    component: Layout,
-    redirect: '/charts/index',
-    name: '图表',
-    icon: 'chart',
-    children: [
-      { path: 'index', component: _import('charts/index'), name: '介绍' },
-      { path: 'keyboard', component: _import('charts/keyboard'), name: '键盘图表' },
-      { path: 'keyboard2', component: _import('charts/keyboard2'), name: '键盘图表2' },
-      { path: 'line', component: _import('charts/line'), name: '折线图' },
-      { path: 'mixchart', component: _import('charts/mixChart'), name: '混合图表' }
-    ]
-  },
+  // {
+  //   path: '/components',
+  //   component: Layout,
+  //   redirect: '/components/index',
+  //   name: '组件',
+  //   icon: 'component',
+  //   children: [
+  //     { path: 'index', component: _import('components/index'), name: '介绍 ' },
+  //     { path: 'tinymce', component: _import('components/tinymce'), name: '富文本编辑器' },
+  //     { path: 'markdown', component: _import('components/markdown'), name: 'Markdown' },
+  //     { path: 'jsoneditor', component: _import('components/jsonEditor'), name: 'JSON编辑器' },
+  //     { path: 'dndlist', component: _import('components/dndList'), name: '列表拖拽' },
+  //     { path: 'splitpane', component: _import('components/splitpane'), name: 'SplitPane' },
+  //     { path: 'avatarupload', component: _import('components/avatarUpload'), name: '头像上传' },
+  //     { path: 'dropzone', component: _import('components/dropzone'), name: 'Dropzone' },
+  //     { path: 'sticky', component: _import('components/sticky'), name: 'Sticky' },
+  //     { path: 'countto', component: _import('components/countTo'), name: 'CountTo' },
+  //     { path: 'mixin', component: _import('components/mixin'), name: '小组件' },
+  //     { path: 'backtotop', component: _import('components/backToTop'), name: '返回顶部' }
+  //   ]
+  // },
+  // {
+  //   path: '/charts',
+  //   component: Layout,
+  //   redirect: '/charts/index',
+  //   name: '图表',
+  //   icon: 'chart',
+  //   children: [
+  //     { path: 'index', component: _import('charts/index'), name: '介绍' },
+  //     { path: 'keyboard', component: _import('charts/keyboard'), name: '键盘图表' },
+  //     { path: 'keyboard2', component: _import('charts/keyboard2'), name: '键盘图表2' },
+  //     { path: 'line', component: _import('charts/line'), name: '折线图' },
+  //     { path: 'mixchart', component: _import('charts/mixChart'), name: '混合图表' }
+  //   ]
+  // },
   {
     path: '/example',
     component: Layout,
