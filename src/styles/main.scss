@@ -1,0 +1,13 @@
+$height10: 10px;
+@mixin marginB($mb) {
+  margin-bottom: $mb;
+}
+@mixin marginT($mt) {
+  margin-top: $mt;
+}
+.margin-bottom10 {
+  @include marginB($height10)
+}
+.margin-top10 {
+  @include marginT($height10)
+}
