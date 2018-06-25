@@ -77,13 +77,21 @@
       </el-col>
     </div>
   </el-row>
+  <el-button size="small" type="primary" icon="el-icon-edit" v-waves @click="handleModifyStatus()">编辑</el-button>
 
+  <create-user :createUser="createUser" v-on:updateVisible="updateVisible"></create-user>
 </div>
 </template>
 
 <script>
+import CreateUser from './user.create.vue'
+import waves from '@/directive/waves/index.js' // 水波纹指令
+
 export default {
   name: 'tabDemo',
+  directives: {
+    waves
+  },
   data() {
     return {
       options: [{
@@ -102,13 +110,26 @@ export default {
         value: '选项5',
         label: '北京烤鸭'
       }],
-      value: ''
+      value: '',
+      createUser: {
+        dialogTitle: '授信初审批复',
+        visible: false
+      }
     }
   },
   methods: {
     showCreatedTimes() {
       this.createdTimes = this.createdTimes + 1
+    },
+    updateVisible(flag) {
+      this.createUser.visible = flag
+    },
+    handleModifyStatus() {
+      this.createUser.visible = true
     }
+  },
+  components: {
+    CreateUser
   }
 }
 </script>
