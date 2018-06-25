@@ -198,7 +198,7 @@
               <template scope="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">查看企业信息</el-button>
                 <!-- 此处授信批复、授信审核、修改授信批复三种状态 -->
-                <el-button type="text" size="small">审批记录</el-button>
+                <el-button @click="handleApprovalRecord(scope.row)" type="text" size="small" >审批记录</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -219,11 +219,13 @@
       </el-col>
     </el-row>
     <credit-approval :creditApproval="creditApproval" v-on:updateVisible="updateVisible"></credit-approval>
+    <approval-record :approvalRecord="approvalRecord" v-on:recordVisible="recordVisible"></approval-record>
   </div>
 </template>
 <script>
 import { fetchList } from '@/api/article'
 import CreditApproval from './credit.approval.vue'
+import ApprovalRecord from './approval.record.vue'
 
 export default {
   data() {
@@ -262,6 +264,10 @@ export default {
       creditApproval: {
         dialogTitle: '授信初审批复',
         visible: false
+      },
+      approvalRecord: {
+        dialogTitle: '审批记录',
+        visible: false
       }
     }
   },
@@ -269,7 +275,8 @@ export default {
     this.fetchData()
   },
   components: {
-    CreditApproval
+    CreditApproval,
+    ApprovalRecord
   },
   methods: {
     handleClick(row) {
@@ -277,6 +284,9 @@ export default {
     },
     handleCredit(row) {
       this.creditApproval.visible = true
+    },
+    handleApprovalRecord(row) {
+      this.approvalRecord.visible = true
     },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
@@ -286,6 +296,9 @@ export default {
     },
     updateVisible(flag) {
       this.creditApproval.visible = flag
+    },
+    recordVisible(flag) {
+      this.approvalRecord.visible = flag
     },
     //  原有页面方法
     fetchData() {
