@@ -39,18 +39,18 @@ export default {
   opacity: 0.24;
  }
  .hsy-dialog {
-  width: 520px;
+  min-width: 520px;
   max-height: 70%;
   overflow: scroll;
   border: 1px solid $border-color;
   border-radius: 4px;
   text-align: center;
   background: #fff;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  z-index: 9999;
+  z-index: 2;
   .main {
     overflow: auto;
     padding-bottom: 10px;

@@ -97,7 +97,7 @@
               <template scope="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">查看企业信息</el-button>
                 <!-- 此处授信批复、授信审核、修改授信批复三种状态 -->
-                <el-button @click="handleClick(scope.row)" type="text" size="small">授信批复</el-button>
+                <el-button @click="handleCredit(scope.row)" type="text" size="small">授信批复</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -198,7 +198,7 @@
               <template scope="scope">
                 <el-button @click="handleClick(scope.row)" type="text" size="small">查看企业信息</el-button>
                 <!-- 此处授信批复、授信审核、修改授信批复三种状态 -->
-                <el-button @click="handleClick(scope.row)" type="text" size="small">审批记录</el-button>
+                <el-button type="text" size="small">审批记录</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -218,10 +218,12 @@
         </el-tabs>
       </el-col>
     </el-row>
+    <credit-approval :creditApproval="creditApproval" v-on:updateVisible="updateVisible"></credit-approval>
   </div>
 </template>
 <script>
 import { fetchList } from '@/api/article'
+import CreditApproval from './credit.approval.vue'
 
 export default {
   data() {
@@ -238,15 +240,15 @@ export default {
         value: '融资申请',
         label: '融资申请'
       }, {
-      //   value: '授信初审',
-      //   label: '授信初审'
-      // }, {
-      //   value: '授信复审',
-      //   label: '授信复审'
-      // }, {
-      //   value: '退回初审',
-      //   label: '退回初审'
-      // }, {
+        value: '授信初审',
+        label: '授信初审'
+      }, {
+        value: '授信复审',
+        label: '授信复审'
+      }, {
+        value: '退回初审',
+        label: '退回初审'
+      }, {
         value: '授信拒绝',
         label: '授信拒绝'
       }, {
@@ -256,21 +258,34 @@ export default {
         value: '授信到期',
         label: '授信到期'
       }],
-      value: ''
+      value: '',
+      creditApproval: {
+        dialogTitle: '授信初审批复',
+        visible: false
+      }
     }
   },
   created() {
     this.fetchData()
   },
+  components: {
+    CreditApproval
+  },
   methods: {
     handleClick(row) {
       console.log(row)
+    },
+    handleCredit(row) {
+      this.creditApproval.visible = true
     },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
+    },
+    updateVisible(flag) {
+      this.creditApproval.visible = flag
     },
     //  原有页面方法
     fetchData() {
