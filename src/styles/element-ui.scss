@@ -80,15 +80,33 @@
      }
    }
  }
- // 物银通专设样式
-//  .el-input__inner {
-//    background-color: #000;
-//    color: #ccc;
-//  }
-// .el-input-group__append, .el-input-group__prepend {
-//   background-color: #20a0ff;
-//   color: white;
-// }
-// .el-table tr {
-//   background-color: #242A48;
-// }
+ //物银通专设样式
+ .el-input__inner {
+   background-color: #000;
+   color: #ccc;
+ }
+.el-input-group__append, .el-input-group__prepend {
+  background-color: #20a0ff;
+  color: white;
+}
+.el-table tr,.el-table::after, .el-table::before {
+  background-color: #242A48;
+}
+.el-table__row {
+  background-color: #272D4A;
+  color: white;
+}
+.el-table__body tr td:hover {
+  background-color: red;
+}
+.el-table__body tr.current-row>td {
+  background-color: #272D4A;
+  // background-color: tan;
+}
+.el-table__footer-wrapper thead div, .el-table__header-wrapper thead div {
+  background-color: #333953;
+  color: #B4BAC6;
+}
+.el-table th {
+  background-color: #333953;
+}

@@ -1,11 +1,6 @@
 <template>
-  <!-- <admin-dialog v-if="approvalRecord.visible" :visible="approvalRecord.visible" :title="approvalRecord.dialogTitle" v-on:recordVisible="recordVisible"> -->
-  <el-dialog
-    title="提示"
-    :visible.sync="approvalRecord.visible"
-    width="30%"
-    >
-
+  <admin-dialog v-if="approvalRecord.visible" :visible="approvalRecord.visible" :title="approvalRecord.dialogTitle" v-on:recordVisible="recordVisible">
+    <div slot="main">
       <el-table
         highlight-current-row
         :data="tableData"
@@ -45,11 +40,11 @@
           align="left">
         </el-table-column>
       </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="approvalRecord.visible = false">取 消</el-button>
-        <el-button type="primary" @click="approvalRecord.visible = false">确 定</el-button>
-      </span>
-  </el-dialog>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="recordVisible">关 闭</el-button>
+      </div>
+    </div>
+  </admin-dialog>
 </template>
 <script>
 export default {

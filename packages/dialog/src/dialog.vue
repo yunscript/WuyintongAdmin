@@ -37,6 +37,7 @@ export default {
   left: 0;
   background: #838383;
   opacity: 0.24;
+  margin: 0;
  }
  .hsy-dialog {
   min-width: 520px;
@@ -45,7 +46,7 @@ export default {
   border: 1px solid $border-color;
   border-radius: 4px;
   text-align: center;
-  background: #fff;
+  background: #242A48;
   position: fixed;
   top: 50%;
   left: 50%;
