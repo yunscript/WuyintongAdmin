@@ -115,6 +115,19 @@ export const asyncRouterMap = [
     ]
   },
   /*
+  *  用户管理
+  */
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    name: '用户管理',
+    icon: 'user',
+    children: [
+      { path: 'index', component: _import('user/index'), name: '用户管理' }
+    ]
+  },
+  /*
   *  设置
   */
   {

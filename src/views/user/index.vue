@@ -1,0 +1,227 @@
+<template>
+  <div class="app-container">
+    <el-row :gutter="20">
+      <el-col :span="3">
+        <!-- 步骤条 -->
+        <!-- <el-steps style='margin-top:50px' direction="vertical" :space="100" :active="1" finish-status="success">
+          <el-step title="融资申请"></el-step>
+          <el-step title="授信初审"></el-step>
+          <el-step title="授信复审"></el-step>
+          <el-step title="授信启用"></el-step>
+          <el-step title="授信到期"></el-step>
+        </el-steps> -->
+        <el-menu>
+          <el-menu-item-group>
+            <template slot="title">用户管理</template>
+            <el-menu-item index="1-1">新增用户</el-menu-item>
+            <el-menu-item index="1-2">修改用户</el-menu-item>
+          </el-menu-item-group>
+        </el-menu>
+      </el-col>
+      <el-col :span="21">
+            <el-row :gutter="20" class="margin-bottom10">
+              <el-col :span="7">
+                <div class="demo-input-suffix">
+                  融资申请编号：
+                  <el-input placeholder=""></el-input>
+                </div>
+              </el-col>
+              <el-col :span="7">
+                <div class="demo-input-suffix">
+                  企业名称：
+                  <el-input width='100' placeholder="请输入内容" class="input-with-select">
+                    <el-button slot="append" class="el-icon-search"></el-button>
+                  </el-input>
+                </div>
+              </el-col>
+              <el-col :span="5">
+                <div class="demo-input-suffix">
+                  状态：
+                  <el-select v-model="value" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+              </el-col>
+              <el-button type="primary">查询</el-button>
+              <el-button type="primary">重置</el-button>
+            </el-row>
+            <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row @selection-change="handleSelectionChange"
+            ref="multipleTable">
+            <!-- <el-table-column type="selection" align="center"></el-table-column> -->
+            <el-table-column align="center" type="index" label='序号' width="95">
+              <!-- <template scope="scope">
+                {{scope.$index}}
+              </template> -->
+            </el-table-column>
+            <el-table-column label="用户名">
+              <template scope="scope">
+                {{scope.row.title}}
+              </template>
+            </el-table-column>
+            <el-table-column label="姓名" width="95" align="center">
+              <template scope="scope">
+                {{scope.row.author}}
+              </template>
+            </el-table-column>
+            <el-table-column label="职位" width="115" align="center">
+              <i class="el-icon-time"></i>
+              <template scope="scope">
+                {{scope.row.display_time}}
+              </template>
+            </el-table-column>
+            <el-table-column label="角色" width="115" align="center">
+              <i class="el-icon-time"></i>
+              <template scope="scope">
+                {{scope.row.display_time}}
+              </template>
+            </el-table-column>
+            <el-table-column label="联系方式" width="115" align="center">
+              <i class="el-icon-time"></i>
+              <template scope="scope">
+                {{scope.row.display_time}}
+              </template>
+            </el-table-column>
+            <el-table-column align="center" prop="created_at" label="创建时间" width="100">
+              <template scope="scope">
+                <span>{{scope.row.pageviews}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" prop="created_at" label="状态" width="100">
+              <template scope="scope">
+                <span>{{scope.row.pageviews}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              width="100">
+              <template scope="scope">
+                <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
+                <!-- 此处授信批复、授信审核、修改授信批复三种状态 -->
+                <el-button @click="handleCredit(scope.row)" type="text" size="small">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!-- 分页  -->
+          <div class="block margin-top10">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="currentPage"
+              :page-sizes="[10, 20, 30, 40]"
+              :page-size="100"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="400">
+            </el-pagination>
+          </div>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+<script>
+import { fetchList } from '@/api/article'
+
+export default {
+  data() {
+    return {
+      list: null,
+      listLoading: true,
+      multipleSelection: [],
+      downloadLoading: false,
+      currentPage: 1,
+      options: [{
+        value: '全部',
+        label: '全部'
+      }, {
+        value: '融资申请',
+        label: '融资申请'
+      }, {
+        value: '授信初审',
+        label: '授信初审'
+      }, {
+        value: '授信复审',
+        label: '授信复审'
+      }, {
+        value: '退回初审',
+        label: '退回初审'
+      }, {
+        value: '授信拒绝',
+        label: '授信拒绝'
+      }, {
+        value: '授信启用',
+        label: '授信启用'
+      }, {
+        value: '授信到期',
+        label: '授信到期'
+      }],
+      value: ''
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    handleClick(row) {
+      console.log(row)
+    },
+    handleCredit(row) {
+      this.creditApproval.visible = true
+    },
+    handleApprovalRecord(row) {
+      this.approvalRecord.visible = true
+    },
+    handleSizeChange(val) {
+      // console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      // console.log(`当前页: ${val}`);
+    },
+    //  原有页面方法
+    fetchData() {
+      this.listLoading = true
+      fetchList(this.listQuery).then(response => {
+        this.list = response.data.items
+        this.listLoading = false
+      })
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    handleDownload() {
+      if (this.multipleSelection.length) {
+        this.downloadLoading = true
+        require.ensure([], () => {
+          const { export_json_to_excel } = require('vendor/Export2Excel')
+          const tHeader = ['序号', '文章标题', '作者', '阅读数', '发布时间']
+          const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
+          const list = this.multipleSelection
+          const data = this.formatJson(filterVal, list)
+          export_json_to_excel(tHeader, data, '列表excel')
+          this.$refs.multipleTable.clearSelection()
+          this.downloadLoading = false
+        })
+      } else {
+        this.$message({
+          message: '请至少选择一条记录',
+          type: 'warning'
+        })
+      }
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]))
+    }
+  }
+}
+</script>
+<style scoped>
+.el-input {
+  width: 200px;
+}
+.el-select {
+  width: 120px;
+}
+</style>

@@ -96,12 +96,8 @@
   background-color: #272D4A;
   color: white;
 }
-.el-table__body tr td:hover {
-  background-color: red;
-}
 .el-table__body tr.current-row>td {
-  background-color: #272D4A;
-  // background-color: tan;
+  background-color: #1C213E;
 }
 .el-table__footer-wrapper thead div, .el-table__header-wrapper thead div {
   background-color: #333953;
@@ -110,3 +106,10 @@
 .el-table th {
   background-color: #333953;
 }
+.el-table__body tr:hover>td{
+  background-color: #1C213E !important;
+ }
+ // el-menu样式修改
+ .el-menu {
+  //  background-color:
+ }
