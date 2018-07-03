@@ -4,7 +4,7 @@
     <el-row :gutter="20">
       <el-col :span="21">
             <el-row :gutter="20" class="margin-bottom10">
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     用户名：
@@ -14,18 +14,18 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     初始密码：
                   </el-col>
                   <el-col :span="16" class="text-left">
-                    <el-input width='100' placeholder="请输入内容" class="input-with-select">
+                    <el-input width='100' placeholder="请输入内容">
                     </el-input>
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     姓名：
@@ -35,7 +35,7 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     职位：
@@ -45,7 +45,7 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     联系方式：
@@ -55,7 +55,7 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     角色：
@@ -72,7 +72,7 @@
                   </el-col>
                 </el-row>
               </el-col>
-              <el-col :span="10">
+              <el-col :span="10" class="mb20">
                 <el-row>
                   <el-col :span="8" class="text-right">
                     权限状态：
@@ -188,5 +188,8 @@ p {
 .checkbox {
   background-color: #272D4A;
   padding: 20px;
+}
+.mb20 {
+  margin-bottom: 20px;
 }
 </style>

@@ -38,7 +38,6 @@
       <el-alert class='alert-item' title="错误提示的文案" type="error">
       </el-alert>
     </div>
-
   </div>
 </template>
 
