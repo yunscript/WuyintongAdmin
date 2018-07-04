@@ -87,13 +87,56 @@
       </el-col>
     </el-row>
     <p>用户权限设置</p>
-    <div class="checkbox">
-      <el-checkbox v-model="checked">首页</el-checkbox>
+    <div class="checkbox margin-bottom10">
+      <el-checkbox v-model="homeChecked">首页</el-checkbox>
+    </div>
+    <div class="checkbox margin-bottom10">
+      <el-checkbox v-model="financeChecked">金融产品管理</el-checkbox>
+      <el-row class='ml15'>
+        <el-col :span="6">
+          <div class="mt10">
+            <el-checkbox v-model="selectAll" @change="handleCheckAllChange(selectAll, checkedCities, cities)">全选</el-checkbox>
+            <!-- <el-checkbox v-model="selectAll">全选</el-checkbox> -->
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange(selectAll, cities, checkedCities)">
+              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="mt10">
+            <el-checkbox v-model="checkAll">全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="mt10">
+            <el-checkbox v-model="checkAll">全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="mt10">
+            <el-checkbox v-model="checkAll">全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
 <script>
 import { fetchList } from '@/api/article'
+const cityOptions = ['上海', '北京', '广州', '深圳']
 
 export default {
   data() {
@@ -130,13 +173,31 @@ export default {
       }],
       value: '',
       permissionStatus: '',
-      checked: false
+      homeChecked: false,
+      financeChecked: false,
+      checkAll: true,
+      selectAll: false,
+      checkedCities: ['上海', '北京'],
+      cities: cityOptions,
+      isIndeterminate: true
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
+    handleCheckAllChange(selectAll, checkedOptions, options) {
+      checkedOptions = selectAll ? options : []
+      console.log('----------checkedOptions = ' + checkedOptions)
+      console.log('----------this.checkedCities = ' + this.checkedCities)
+    },
+    handleCheckedCitiesChange(checkAll, options, checkedOptions) {
+      const checkedCount = checkedOptions.length
+      checkAll = checkedCount === options.length
+      this.selectAll = checkAll
+      console.log('checkAll = ' + checkAll + ';options = ' + options + ';checkedOptions = ' + checkedOptions)
+      console.log('----------this.selectAll = ' + this.selectAll + '----------checkAll = ' + checkAll)
+    },
     //  原有页面方法
     fetchData() {
       this.listLoading = true
@@ -191,5 +252,14 @@ p {
 }
 .mb20 {
   margin-bottom: 20px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.ml15 {
+  margin-left: 15px;
 }
 </style>
