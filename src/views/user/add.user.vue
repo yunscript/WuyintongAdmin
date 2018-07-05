@@ -95,10 +95,9 @@
       <el-row class='ml15'>
         <el-col :span="6">
           <div class="mt10">
-            <el-checkbox v-model="selectAll" @change="handleCheckAllChange(selectAll, checkedCities, cities)">全选</el-checkbox>
-            <!-- <el-checkbox v-model="selectAll">全选</el-checkbox> -->
+            <el-checkbox v-model="selectAll.addPersonLoanSelectAll" @change="handleCheckAllChange(selectAll.addPersonLoanSelectAll, checkedCities, cities)">全选</el-checkbox>
             <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange(selectAll, cities, checkedCities)">
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange('addPersonLoanSelectAll', cities, checkedCities)">
               <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
             </el-checkbox-group>
           </div>
@@ -176,7 +175,9 @@ export default {
       homeChecked: false,
       financeChecked: false,
       checkAll: true,
-      selectAll: false,
+      selectAll: {
+        addPersonLoanSelectAll: false
+      },
       checkedCities: ['上海', '北京'],
       cities: cityOptions,
       isIndeterminate: true
@@ -187,16 +188,23 @@ export default {
   },
   methods: {
     handleCheckAllChange(selectAll, checkedOptions, options) {
-      checkedOptions = selectAll ? options : []
-      console.log('----------checkedOptions = ' + checkedOptions)
-      console.log('----------this.checkedCities = ' + this.checkedCities)
+      if (selectAll) {
+        checkedOptions.splice(0, checkedOptions.length)
+        for (var i = 0; i < options.length; i++) {
+          checkedOptions.push(options[i])
+        }
+      } else {
+        checkedOptions = checkedOptions.splice(0, checkedOptions.length)
+      }
     },
     handleCheckedCitiesChange(checkAll, options, checkedOptions) {
       const checkedCount = checkedOptions.length
-      checkAll = checkedCount === options.length
-      this.selectAll = checkAll
-      console.log('checkAll = ' + checkAll + ';options = ' + options + ';checkedOptions = ' + checkedOptions)
-      console.log('----------this.selectAll = ' + this.selectAll + '----------checkAll = ' + checkAll)
+      // Vue.set(object, key, value)
+      if (checkedCount === options.length) {
+        this.$set(this.selectAll, checkAll, true)
+      } else {
+        this.$set(this.selectAll, checkAll, false)
+      }
     },
     //  原有页面方法
     fetchData() {
