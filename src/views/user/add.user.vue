@@ -188,23 +188,19 @@ export default {
   },
   methods: {
     handleCheckAllChange(selectAll, checkedOptions, options) {
+      checkedOptions.splice(0, checkedOptions.length)
+      // for (var value of options) {
+      //   console.log(value)
+      // }
       if (selectAll) {
-        checkedOptions.splice(0, checkedOptions.length)
-        for (var i = 0; i < options.length; i++) {
-          checkedOptions.push(options[i])
-        }
-      } else {
-        checkedOptions = checkedOptions.splice(0, checkedOptions.length)
+        options.forEach((item, i) => {
+          this.$set(checkedOptions, i, options[i])
+        })
       }
     },
     handleCheckedCitiesChange(checkAll, options, checkedOptions) {
       const checkedCount = checkedOptions.length
-      // Vue.set(object, key, value)
-      if (checkedCount === options.length) {
-        this.$set(this.selectAll, checkAll, true)
-      } else {
-        this.$set(this.selectAll, checkAll, false)
-      }
+      this.$set(this.selectAll, checkAll, checkedCount === options.length)
     },
     //  原有页面方法
     fetchData() {
