@@ -91,13 +91,13 @@
       <el-checkbox v-model="homeChecked">首页</el-checkbox>
     </div>
     <div class="checkbox margin-bottom10">
-      <el-checkbox v-model="trade.selectAll" @change="handleCheckAllChange(trade.selectAll, )">{{ trade.oneLable}}</el-checkbox>
+      <el-checkbox v-model="trade.selectAll" @change="handleAllChange(trade.selectAll, trade.menuLevel)">{{ trade.oneLable}}</el-checkbox>
       <el-row class='ml15'>
-        <el-col :span="6" v-for="(items, index) in trade.financeManagement">
+        <el-col :span="6" v-for="(items, index) in trade.menuLevel">
           <div class="mt10">
-            <el-checkbox v-model="items.selectAll" @change="handleCheckAllChange(items.selectAll, items.checkedCities, items.twoLable)">{{ items.oneLable }}</el-checkbox>
+            <el-checkbox v-model="items.selectAll" @change="handleCheckAllChange(trade, items.selectAll, items.checkedCities, items.twoLable)">{{ items.oneLable }}</el-checkbox>
             <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="items.checkedCities" @change="handleCheckedCitiesChange('selectAll', index, items.twoLable, items.checkedCities)">
+            <el-checkbox-group v-model="items.checkedCities" @change="handleCheckedCitiesChange(trade, 'selectAll', index, items.twoLable, items.checkedCities)">
               <el-checkbox class='ml15 block mb10' v-for="city in items.twoLable" :label="city" :key="city">{{city}}</el-checkbox>
             </el-checkbox-group>
           </div>
@@ -151,7 +151,7 @@ export default {
         // twoLable: ['融资申请', '授信管理', '用款查询', '还款查询'],
         checkedCities: ['融资申请'],
         selectAll: false,
-        financeManagement: [{
+        menuLevel: [{
           oneLable: '融资申请', //  一级选项
           twoLable: ['正在审批', '审批记录', '授信批复', '查看企业信息', '修改授信批复', '授信审核', '查看审批记录'], //  二级选项
           checkedCities: ['正在审批', '审批记录'], //  默认选中
@@ -172,45 +172,53 @@ export default {
           checkedCities: ['还款详情'],
           selectAll: false  //  一级全选控制按钮
         }]
-      },
-      financeManagement: [{
-        oneLable: '融资申请', //  一级选项
-        twoLable: ['正在审批', '审批记录', '授信批复', '查看企业信息', '修改授信批复', '授信审核', '查看审批记录'], //  二级选项
-        checkedCities: ['正在审批', '审批记录'], //  默认选中
-        selectAll: false  //  一级全选控制按钮
-      }, {
-        oneLable: '授信管理',
-        twoLable: ['查看授信详情'],
-        checkedCities: ['查看授信详情'],
-        selectAll: true  //  一级全选控制按钮
-      }, {
-        oneLable: '用款查询',
-        twoLable: ['查看用款详情', '放款确认', '查看放款凭证'],
-        checkedCities: ['查看用款详情', '查看放款凭证'],
-        selectAll: false
-      }, {
-        oneLable: '还款查询',
-        twoLable: ['账单明细', '还款详情'],
-        checkedCities: ['还款详情'],
-        selectAll: false  //  一级全选控制按钮
-      }]
+      }
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
-    handleCheckAllChange(selectAll, checkedOptions, options) {
+    handleAllChange(selectAll, options) {
+      if (selectAll) {
+        options.forEach((item, i) => {
+          this.$set(options[i], 'selectAll', true)
+          options[i].checkedCities.splice(0, options[i].checkedCities.length)
+          options[i].twoLable.forEach((items, j) => {
+            this.$set(options[i].checkedCities, j, options[i].twoLable[j])
+          })
+        })
+      } else {
+        options.forEach((item, i) => {
+          this.$set(options[i], 'selectAll', false)
+          options[i].checkedCities.splice(0, options[i].checkedCities.length)
+        })
+      }
+    },
+    handleCheckAllChange(permissionsItems, selectAll, checkedOptions, options) {
       checkedOptions.splice(0, checkedOptions.length)
       if (selectAll) {
         options.forEach((item, i) => {
           this.$set(checkedOptions, i, options[i])
         })
       }
+      this.isMenuLevelAllSelected(permissionsItems)
     },
-    handleCheckedCitiesChange(checkAll, index, options, checkedOptions) {
+    handleCheckedCitiesChange(permissionsItems, checkAll, index, options, checkedOptions) {
+      // let selectedIndex = 0
       const checkedCount = checkedOptions.length
-      this.$set(this.trade.financeManagement[index], checkAll, checkedCount === options.length)
+      this.$set(permissionsItems.menuLevel[index], checkAll, checkedCount === options.length)
+      this.isMenuLevelAllSelected(permissionsItems)
+    },
+    // 判断二级列表是否被全选
+    isMenuLevelAllSelected(permissionsSetting) {
+      let selectedIndex = 0
+      permissionsSetting.menuLevel.forEach((item, i) => {
+        if (permissionsSetting.menuLevel[i].selectAll) {
+          selectedIndex = selectedIndex + 1
+        }
+      })
+      this.$set(permissionsSetting, 'selectAll', selectedIndex === permissionsSetting.menuLevel.length)
     },
     //  原有页面方法
     fetchData() {
