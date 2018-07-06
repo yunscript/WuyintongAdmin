@@ -91,41 +91,14 @@
       <el-checkbox v-model="homeChecked">首页</el-checkbox>
     </div>
     <div class="checkbox margin-bottom10">
-      <el-checkbox v-model="financeChecked">金融产品管理</el-checkbox>
+      <el-checkbox v-model="trade.selectAll" @change="handleCheckAllChange(trade.selectAll, )">{{ trade.oneLable}}</el-checkbox>
       <el-row class='ml15'>
-        <el-col :span="6">
+        <el-col :span="6" v-for="(items, index) in trade.financeManagement">
           <div class="mt10">
-            <el-checkbox v-model="selectAll.addPersonLoanSelectAll" @change="handleCheckAllChange(selectAll.addPersonLoanSelectAll, checkedCities, cities)">全选</el-checkbox>
+            <el-checkbox v-model="items.selectAll" @change="handleCheckAllChange(items.selectAll, items.checkedCities, items.twoLable)">{{ items.oneLable }}</el-checkbox>
             <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange('addPersonLoanSelectAll', cities, checkedCities)">
-              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="mt10">
-            <el-checkbox v-model="checkAll">全选</el-checkbox>
-            <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="mt10">
-            <el-checkbox v-model="checkAll">全选</el-checkbox>
-            <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="mt10">
-            <el-checkbox v-model="checkAll">全选</el-checkbox>
-            <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-              <el-checkbox class='ml15 block mb10' v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+            <el-checkbox-group v-model="items.checkedCities" @change="handleCheckedCitiesChange('selectAll', index, items.twoLable, items.checkedCities)">
+              <el-checkbox class='ml15 block mb10' v-for="city in items.twoLable" :label="city" :key="city">{{city}}</el-checkbox>
             </el-checkbox-group>
           </div>
         </el-col>
@@ -135,7 +108,6 @@
 </template>
 <script>
 import { fetchList } from '@/api/article'
-const cityOptions = ['上海', '北京', '广州', '深圳']
 
 export default {
   data() {
@@ -174,13 +146,54 @@ export default {
       permissionStatus: '',
       homeChecked: false,
       financeChecked: false,
-      checkAll: true,
-      selectAll: {
-        addPersonLoanSelectAll: false
+      trade: {
+        oneLable: '融资管理', //  一级选项
+        // twoLable: ['融资申请', '授信管理', '用款查询', '还款查询'],
+        checkedCities: ['融资申请'],
+        selectAll: false,
+        financeManagement: [{
+          oneLable: '融资申请', //  一级选项
+          twoLable: ['正在审批', '审批记录', '授信批复', '查看企业信息', '修改授信批复', '授信审核', '查看审批记录'], //  二级选项
+          checkedCities: ['正在审批', '审批记录'], //  默认选中
+          selectAll: false  //  一级全选控制按钮
+        }, {
+          oneLable: '授信管理',
+          twoLable: ['查看授信详情'],
+          checkedCities: ['查看授信详情'],
+          selectAll: true  //  一级全选控制按钮
+        }, {
+          oneLable: '用款查询',
+          twoLable: ['查看用款详情', '放款确认', '查看放款凭证'],
+          checkedCities: ['查看用款详情', '查看放款凭证'],
+          selectAll: false
+        }, {
+          oneLable: '还款查询',
+          twoLable: ['账单明细', '还款详情'],
+          checkedCities: ['还款详情'],
+          selectAll: false  //  一级全选控制按钮
+        }]
       },
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
-      isIndeterminate: true
+      financeManagement: [{
+        oneLable: '融资申请', //  一级选项
+        twoLable: ['正在审批', '审批记录', '授信批复', '查看企业信息', '修改授信批复', '授信审核', '查看审批记录'], //  二级选项
+        checkedCities: ['正在审批', '审批记录'], //  默认选中
+        selectAll: false  //  一级全选控制按钮
+      }, {
+        oneLable: '授信管理',
+        twoLable: ['查看授信详情'],
+        checkedCities: ['查看授信详情'],
+        selectAll: true  //  一级全选控制按钮
+      }, {
+        oneLable: '用款查询',
+        twoLable: ['查看用款详情', '放款确认', '查看放款凭证'],
+        checkedCities: ['查看用款详情', '查看放款凭证'],
+        selectAll: false
+      }, {
+        oneLable: '还款查询',
+        twoLable: ['账单明细', '还款详情'],
+        checkedCities: ['还款详情'],
+        selectAll: false  //  一级全选控制按钮
+      }]
     }
   },
   created() {
@@ -189,18 +202,15 @@ export default {
   methods: {
     handleCheckAllChange(selectAll, checkedOptions, options) {
       checkedOptions.splice(0, checkedOptions.length)
-      // for (var value of options) {
-      //   console.log(value)
-      // }
       if (selectAll) {
         options.forEach((item, i) => {
           this.$set(checkedOptions, i, options[i])
         })
       }
     },
-    handleCheckedCitiesChange(checkAll, options, checkedOptions) {
+    handleCheckedCitiesChange(checkAll, index, options, checkedOptions) {
       const checkedCount = checkedOptions.length
-      this.$set(this.selectAll, checkAll, checkedCount === options.length)
+      this.$set(this.trade.financeManagement[index], checkAll, checkedCount === options.length)
     },
     //  原有页面方法
     fetchData() {
